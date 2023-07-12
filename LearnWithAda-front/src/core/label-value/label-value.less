@@ -1,0 +1,19 @@
+.label-value {
+  &-label {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+  }
+
+  &-value {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: auto;
+    font-size: 12px;
+  }
+
+  &:not(:last-child):not(:first-child), &:nth-child(2):last-child {
+    margin: 16px 0;
+  }
+}

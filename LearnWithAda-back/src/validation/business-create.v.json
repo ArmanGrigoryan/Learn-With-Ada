@@ -1,0 +1,59 @@
+{
+    "title": "create a new business",
+    "type": "object",
+    "properties": {
+        "body": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "errorMessage": {
+                        "type": "Name must be string.",
+                        "minLength": "Name must NOT have fewer than 1 characters.",
+                        "maxLength": "Name must NOT have more than 100 characters."
+                    }
+                },
+                "members": {
+                    "type": "object",
+                    "properties": {
+                        "userIds": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "pattern": "^[a-f\\d]{24}$",
+                                "errorMessage": {
+                                    "type": "User must be string.",
+                                    "pattern": "User must match format ObjectId."
+                                }
+                            }
+                        },
+                        "status": {
+                            "type": "string",
+                            "errorMessage": {
+                                "type": "Status must be string."
+                            }
+                        },
+                        "token": {
+                            "type": "string",
+                            "maxLength": 100,
+                            "errorMessage": {
+                                "type": "Token must be string.",
+                                "maxLength": "Token must NOT have more than 100 characters."
+                            }
+                        }
+                    }
+                }
+            },
+            "required": ["name"],
+            "errorMessage": {
+                "required": {
+                    "name": "Name is required",
+                    "creator": "Creator is required"
+                }
+            }
+        }
+    },
+    "required": ["body"]
+}

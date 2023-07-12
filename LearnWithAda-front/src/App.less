@@ -1,0 +1,23 @@
+@import '~antd/dist/antd.less';
+@import './_index.less';
+
+.dashboard {
+    background: @white;
+    &-sidebar {
+        position: fixed;
+        top: 0;
+        z-index: 99;
+        height: 100vh;
+        bottom: 0;
+    }
+    &-content {
+        margin-left: 200px;
+        padding: 4;
+        min-height: 800;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px @white inset !important;
+    box-shadow: 0 0 0px 1000px @white inset !important;
+}

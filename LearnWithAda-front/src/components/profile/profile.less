@@ -1,0 +1,21 @@
+@import '../../_index.less';
+
+.profile {
+    display: inline-flex;
+    align-items: center;
+    line-height: normal !important;
+    gap: 8px;
+    vertical-align: top;
+
+    &-clickable {
+        height: 100%;
+        cursor: pointer;
+    }
+
+    &-user-name {
+        white-space: nowrap;
+    }
+    &-avatar {
+        background-color: @primary-color;
+    }
+}

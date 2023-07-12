@@ -1,0 +1,49 @@
+@import '../../_index.less';
+
+.topic-collapse {
+    padding: 24px 40px;
+    margin-top: 24px;
+    &-content {
+        &-item {
+            &:hover {
+                .topic-collapse-content-header-actions {
+                    display: block;
+                }
+            }
+            &-card-actions {
+                &:hover {
+                    color: @primary-color;
+                }
+                font-size: 20px;
+            }
+        }
+        &-lesson-item {
+            &:hover {
+                box-shadow: @shadow-3;
+                .topic-collapse-content-item-card-actions {
+                    display: block;
+                }
+            }
+        }
+        width: 960px;
+        &-header {
+            display: flex;
+            align-items: center;
+            &-actions {
+                position: absolute;
+                right: 0;
+                display: none;
+
+                &-button-item {
+                    cursor: pointer;
+                }
+            }
+        }
+        &-lessons {
+            text-align: center;
+        }
+    }
+}
+.lesson-content-carousel {
+    width: 500px;
+}

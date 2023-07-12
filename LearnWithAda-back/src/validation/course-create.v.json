@@ -1,0 +1,62 @@
+{
+    "title": "create a new course",
+    "type": "object",
+    "properties": {
+        "body": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "errorMessage": {
+                        "type": "Name must be string.",
+                        "minLength": "Name must NOT have fewer than 1 characters.",
+                        "maxLength": "Name must NOT have more than 100 characters."
+                    }
+                },
+                "description": {
+                    "type": "string",
+                    "errorMessage": {
+                        "type": "Description must be string."
+                    }
+                },
+                "price": {
+                    "type": "string",
+                    "pattern": "^[0-9]*$",
+                    "errorMessage": {
+                        "type": "Price must be number."
+                    }
+                },
+                "currentPrice": {
+                    "type": "string",
+                    "pattern": "^[0-9]*$",
+                    "errorMessage": {
+                        "type": "Current price must be number."
+                    }
+                },
+                "logo": {
+                    "type": "string",
+                    "errorMessage": {
+                        "type": "Logo must be string."
+                    }
+                },
+                "visibility": {
+                    "type": "string",
+                    "errorMessage": {
+                        "type": "Visibility must be string."
+                    }
+                }
+            },
+            "required": ["name", "description", "price"],
+            "errorMessage": {
+                "required": {
+                    "name": "Name is required.",
+                    "price": "Price is required",
+                    "description": "Description is required"
+                }
+            }
+        }
+    },
+    "required": ["body"]
+}

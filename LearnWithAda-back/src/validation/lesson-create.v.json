@@ -1,0 +1,77 @@
+{
+    "title": "create a new lesson",
+    "type": "object",
+    "properties": {
+        "formData": {
+            "type": "string",
+            "properties": {
+                "topicId": {
+                    "type": "string",
+                    "pattern": "^[a-f\\d]{24}$",
+                    "errorMessage": {
+                        "type": "Topic must be string.",
+                        "pattern": "Topic must match format ObjectId."
+                    }
+                },
+                "instructionType": {
+                    "type": "string",
+                    "enum": ["text", "video", "slide"],
+                    "errorMessage": {
+                        "type": "Instruction type must be string.",
+                        "enum": "Instruction type must be equal to one of the allowed values ['text', 'video', 'slide']."
+                    }
+                },
+                "instruction": {
+                    "type": "object",
+                    "properties": {
+                        "instruction": {
+                            "type": "string"
+                        },
+                        "instructionFile": {
+                            "type": "boolean"
+                        }
+                    },
+                    "errorMessage": {
+                        "type": "Instruction must be object."
+                    }
+                },
+                "assessmentQuestion": {
+                    "type": "string",
+                    "errorMessage": {
+                        "type": "Assessment question must be string."
+                    }
+                },
+                "answerChoices": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "answerChoice": {
+                                "type": "string"
+                            },
+                            "isCorrect": {
+                                "type": "boolean"
+                            }
+                        }
+                    },
+                    "minItems": 2,
+                    "maxItems": 5
+                },
+                "simpleAnswer": {
+                    "type": "boolean",
+                    "errorMessage": {
+                        "type": "SimpleAnswer must be boolean."
+                    }
+                }
+            },
+            "required": ["topicId", "instruction", "assessmentQuestion"],
+            "errorMessage": {
+                "required": {
+                    "instructionId": "InstructionId is required.",
+                    "assessmentId": "AssessmentId is required.",
+                    "topicId": "TopicId is required."
+                }
+            }
+        }
+    }
+}

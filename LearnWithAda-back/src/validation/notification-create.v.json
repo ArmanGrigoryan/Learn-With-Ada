@@ -1,0 +1,41 @@
+{
+    "title": "create a new topic",
+    "type": "object",
+    "properties": {
+        "body": {
+            "type": "object",
+            "properties": {
+                "businessAdminId": {
+                    "type": "string",
+                    "pattern": "^[a-f\\d]{24}$",
+                    "errorMessage": {
+                        "type": "Business-admin Id must be string."
+                    }
+                },
+                "userId": {
+                    "type": "string",
+                    "pattern": "^[a-f\\d]{24}$",
+                    "errorMessage": {
+                        "type": "Business-admin Id must be string."
+                    }
+                },
+                "courseId": {
+                    "type": "string",
+                    "pattern": "^[a-f\\d]{24}$",
+                    "errorMessage": {
+                        "type": "Business-admin Id must be string."
+                    }
+                }
+            },
+            "required": ["businessAdminId", "courseId", "userId"],
+            "errorMessage": {
+                "required": {
+                    "businessAdminId": "Business Admin Id is required.",
+                    "courseId": "Course Id is required.",
+                    "userId": "User Id is required."
+                }
+            }
+        }
+    },
+    "required": ["body"]
+}

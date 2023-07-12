@@ -1,0 +1,266 @@
+@import '../../assets/colors/_colors.less';
+@import '../../_index.less';
+
+button[disabled] {
+    background-color: @disabledButton !important;
+    color: @white !important;
+}
+
+input[type='password']::placeholder,
+input[type='text']::placeholder {
+    letter-spacing: 0px !important;
+}
+
+.sign-in-container {
+    display: flex;
+    height: 100vh;
+
+    &__left {
+        padding: 90px 100px 0 100px;
+        background-color: @signInBackColor;
+
+        h1 {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 54px;
+            letter-spacing: 0em;
+            color: @logoColor;
+            margin: 0;
+            margin-bottom: 115px;
+
+            @media screen and (max-width: 1750px) {
+                margin-bottom: 65px;
+            }
+        }
+
+        &__img {
+            width: 27vw;
+            height: auto;
+
+            @media screen and (max-width: 1630px) {
+                width: 320px;
+                height: 348px;
+            }
+
+            @media screen and (max-height: 970px) {
+                height: 348px !important;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+
+            &__progress {
+                width: 100%;
+                height: auto;
+
+                .progressDiv {
+                    height: 32px;
+                    border-radius: 8px;
+                    background-color: @logoColor;
+                }
+
+                &__above {
+                    margin-top: 32px;
+                    margin-bottom: 16px;
+                    width: 83%;
+                    .progressDiv;
+                }
+
+                &__below {
+                    width: 66%;
+                    .progressDiv;
+                }
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            padding: 130px 50px 0 50px;
+        }
+    }
+
+    &__right {
+        width: 100%;
+        background-color: @white;
+        padding-left: 16%;
+
+        @media screen and (max-width: 1750px) {
+            padding-left: 12%;
+        }
+
+        @media screen and (max-width: 1600px) {
+            padding-left: 12%;
+
+            &__footer {
+                margin-left: 0px !important;
+            }
+        }
+
+        &__first {
+            padding: 50px 0 90px 0;
+
+            &__signup {
+                padding-right: 80px;
+                font-size: 18px;
+                line-height: 25px;
+                letter-spacing: 0em;
+                margin: 0;
+                cursor: pointer;
+                display: flex;
+                justify-content: flex-end;
+
+                a {
+                    color: @forgotPassColor !important;
+                    font-weight: 600;
+                    margin-left: 5px;
+                }
+            }
+
+            @media screen and (max-height: 970px) {
+                padding-bottom: 40px;
+            }
+
+            @media screen and (max-width: 1630px) {
+                padding-bottom: 60px;
+            }
+        }
+
+        &__second {
+            padding: 30px;
+
+            form {
+                max-width: 536px;
+            }
+
+            .label {
+                font-size: 18px;
+                font-weight: 600;
+                line-height: 25px;
+                margin: 24px 0 20px 0;
+            }
+
+            &__emailLabel {
+                .label;
+                margin-top: 80px;
+
+                @media screen and (max-width: 1630px) {
+                    margin-top: 40px;
+                }
+            }
+
+            &__passLabel {
+                .label;
+            }
+
+            &__email,
+            &__password {
+                border-radius: 8px;
+                border: 2px solid @logoColor;
+                padding: 5px !important;
+            }
+
+            &__password {
+                margin-bottom: 0;
+
+                input[type='text'] {
+                    letter-spacing: 10px !important;
+                }
+            }
+
+            input[type='password'],
+            input[type='text'] {
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 27px;
+                letter-spacing: 0em;
+                text-align: left;
+            }
+
+            input[type='password'] {
+                letter-spacing: 10px !important;
+            }
+
+            input,
+            input:focus,
+            &__password span,
+            &__password span:hover {
+                border: none !important;
+                box-shadow: none;
+                color: @inputColor;
+            }
+
+            &__forgot {
+                position: relative;
+                display: block !important;
+                text-decoration: underline !important;
+                color: @forgotPassColor !important;
+                text-align: right;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 22px;
+                letter-spacing: 0em;
+
+                .password-extra {
+                    position: absolute;
+                    top: 0;
+                    margin: 0 !important;
+                    font-size: 14px;
+                    color: @red-1;
+                }
+            }
+
+            #submitBtn {
+                display: inline-flex;
+                align-items: center;
+                margin-top: 25px;
+                padding: 23px 58px;
+                border-radius: 24px;
+                background-color: @forgotPassColor;
+                color: @white;
+            }
+
+            @media screen and (max-width: 1630px) {
+                max-width: 486px;
+            }
+
+            @media screen and (max-width: 1200px) {
+                max-width: 386px;
+            }
+
+            @media screen and (max-width: 900px) {
+                max-width: 300px;
+            }
+        }
+
+        &__footer {
+            font-size: 20px;
+            line-height: 27px;
+            letter-spacing: 0em;
+            text-align: left;
+            padding: 0;
+            color: @logoColor !important;
+            margin-left: 30px;
+            margin-top: 320px;
+            margin-right: 30px;
+
+            a {
+                font-weight: 600;
+                color: @forgotPassColor !important;
+                text-decoration: underline !important;
+            }
+
+            @media screen and (max-width: 1200px) {
+                font-size: 16px;
+            }
+
+            @media screen and (max-height: 970px) {
+                margin-top: 100px !important;
+            }
+
+            @media screen and (max-height: 1060px) {
+                margin-top: 220px;
+            }
+        }
+    }
+}

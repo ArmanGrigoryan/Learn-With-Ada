@@ -1,0 +1,98 @@
+{
+    "title": "create a new topic",
+    "type": "object",
+    "properties": {
+        "body": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "errorMessage": {
+                        "type": "Name must be string.",
+                        "minLength": "Name must NOT have fewer than 1 characters.",
+                        "maxLength": "Name must NOT have more than 100 characters."
+                    }
+                },
+                "lessons": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "assessmentAnswerType": {
+                                "type": "string",
+                                "errorMessage": "AssessmentAnswerType must be string."
+                            },
+                            "instruction": {
+                                "type": "object",
+                                "properties": {
+                                    "instruction": {
+                                        "type": "string"
+                                    },
+                                    "instructionFile": {
+                                        "type": "string"
+                                    }
+                                },
+                                "errorMessage": {
+                                    "type": "Instruction must be string."
+                                }
+                            },
+                            "assessmentQuestion": {
+                                "type": "string",
+                                "errorMessage": {
+                                    "type": "Assessment question must be string."
+                                }
+                            },
+                            "answerChoices": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "answerChoice": {
+                                            "type": "string"
+                                        },
+                                        "isCorrect": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "minItems": 2,
+                                "maxItems": 5
+                            },
+                            "simpleAnswer": {
+                                "type": "boolean",
+                                "errorMessage": {
+                                    "type": "SimpleAnswer must be boolean."
+                                }
+                            }
+                        },
+                        "required": ["instruction", "assessmentQuestion"],
+                        "errorMessage": {
+                            "required": {
+                                "instruction": "Instruction is required",
+                                "assessmentQuestion": "AssessmentQuestion is required"
+                            }
+                        }
+                    },
+                    "errorMessage": {
+                        "type": "Lessons must be array."
+                    }
+                },
+                "courseId": {
+                    "type": "number",
+                    "errorMessage": {
+                        "type": "courseId must be a number."
+                    }
+                }
+            },
+            "required": ["name"],
+            "errorMessage": {
+                "required": {
+                    "name": "Name is required."
+                }
+            }
+        }
+    },
+    "required": ["body"]
+}

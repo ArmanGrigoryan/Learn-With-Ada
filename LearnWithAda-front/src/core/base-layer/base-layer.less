@@ -1,0 +1,22 @@
+@import '../../_index.less';
+
+.base-layer {
+    background-color: @white;
+    border: 1px solid @grey-1;
+    border-radius: 8px;
+    margin-bottom: 60px;
+
+    &-content {
+        padding: @base-layer-padding-base;
+    }
+
+    &-head {
+        border-radius: 8px 8px 0 0;
+    }
+
+    each(@shadows, {
+    &-@{key} {
+      box-shadow: @value;
+    }
+  });
+}

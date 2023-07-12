@@ -1,0 +1,67 @@
+{
+    "title": "create a new group",
+    "type": "object",
+    "properties": {
+        "body": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "errorMessage": {
+                        "type": "Name must be string.",
+                        "minLength": "Name must NOT have fewer than 1 characters.",
+                        "maxLength": "Name must NOT have more than 100 characters."
+                    }
+                },
+                "creator": {
+                    "type": "string",
+                    "pattern": "^[0-9]*$",
+                    "errorMessage": {
+                        "type": "User id must be integer.",
+                        "pattern": "User id must be integer."
+                    }
+                },
+                "businessId": {
+                    "type": "number",
+                    "minLength": 1,
+                    "maxLength": 1000,
+                    "errorMessage": {
+                        "type": "Business id must be integer."
+                    }
+                },
+                "userIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "errorMessage": {
+                            "type": "User must be integer."
+                        }
+                    }
+                },
+                "courseIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "minLength": 1,
+                        "maxLength": 1000,
+                        "errorMessage": {
+                            "type": "User must be integer."
+                        }
+                    }
+                }
+            },
+            "required": ["name", "creator"],
+            "errorMessage": {
+                "required": {
+                    "name": "Name is required",
+                    "creator": "Creator is required"
+                }
+            }
+        }
+    },
+    "required": ["body"]
+}

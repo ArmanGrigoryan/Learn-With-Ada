@@ -1,0 +1,55 @@
+.sidebar {
+  position: fixed;
+  right: 0;
+  z-index: 3;
+  height: 100vh;
+  width: 360px;
+  background-color: @white;
+  transition: transform 0.2s ease 0s;
+
+  &-collapsed {
+    transform: translateX(100%);
+  }
+
+  &-header {
+    height: @header-navbar-height;
+  }
+
+  &-content {
+    height: calc(100vh - @header-navbar-height);
+  }
+
+  &-cross-icon {
+    margin-right: 16px;
+  }
+
+  &-menu {
+    margin-top: 16px;
+  }
+
+  &-collapse-icon {
+    margin-right: 16px;
+
+    &-icon-up {
+      transform: rotate(180deg);
+    }
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 8px;
+  }
+
+  .collapse {
+    border: 0;
+  }
+
+  .collapse > .collapse-item:last-child, .collapse > .collapse-item:last-child > .collapse-header {
+    border-radius: 0;
+  }
+
+  .collapse-icon-position-right > .collapse-item > .collapse-header .collapse-arrow {
+    right: 16px;
+  }
+}

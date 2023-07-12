@@ -1,0 +1,2336 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Learning management system",
+        "description": "Learning management system",
+        "license": {
+            "name": "",
+            "url": ""
+        }
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Users API"
+        },
+        {
+            "name": "Topic",
+            "description": "Topic API"
+        },
+        {
+            "name": "Lesson",
+            "description": "Lesson API"
+        },
+        {
+            "name": "AssessmentResult",
+            "description": "AssessmentResult API"
+        },
+        {
+            "name": "Course",
+            "description": "Course API"
+        }
+    ],
+    "schemes": ["http", "https"],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "authorization",
+            "in": "header"
+        }
+    },
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/user/signup": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "User sign up",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/userSignUp"
+                        }
+                    }
+                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "201": {
+                        "description": "User sign up success",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/signin": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "User sign in",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/userSignIn"
+                        }
+                    }
+                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "User signed in successfully",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "tags": ["Users"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get all users",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "All user's data",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "put": {
+
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Users"],
+                "summary": "Update user's role",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "User id",
+                        "type": "number"
+                    },
+                    {
+                        "name": "role",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/userUpdateRole"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Topic updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/register/{id}": {
+            "put": {
+                "tags": ["Users"],
+                "summary": "Register user from invitation link",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "any number",
+                        "type": "number"
+                    },
+                    {
+                        "name": "role",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/registerModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Topic updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/result/{userId}/{courseId}": {
+            "get": {
+                "tags": ["Users"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get user's passed lessons",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "description": "User Id",
+                        "type": "number"
+                    },
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "required": true,
+                        "description": "Course Id",
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Passed lessons",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/topic": {
+            "get": {
+                "tags": ["Topic"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get all topics",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Topic list",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Topic"],
+                "summary": "Create a topic",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "topic",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/topic-post"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Topic created",
+                        "schema": {
+                            "$ref": "#/definitions/topic-get"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/topic/{id}": {
+            "get": {
+                "tags": ["Topic"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get single topic",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Topic id",
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": " Single topic",
+                        "schema": {
+                            "$ref": "#/definitions/topic-get"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Topic"],
+                "summary": "Update a topic",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Topic id",
+                        "type": "number"
+                    },
+                    {
+                        "name": "topic",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/topic-post"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Topic updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/topic-get"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Topic id",
+                        "type": "number"
+                    }
+                ],
+                "tags": ["Topic"],
+                "summary": "Delete single topic",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Delete topic success",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/topic/own/:creatorId": {
+            "get": {
+                "tags": ["Topic"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Creator id",
+                        "type": "number"
+                    }
+                ],
+                "summary": "Get topics by creator",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Topic list",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/lesson": {
+            "get": {
+                "tags": ["Lesson"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get all lessons",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Lessons list",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Lesson"],
+                "summary": "Create a lesson",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "lesson",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/lesson"
+                        }
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "type": "file",
+                        "description": "Instruction of lesson"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lesson created",
+                        "schema": {
+                            "$ref": "#/definitions/lesson"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/lesson/{id}": {
+            "get": {
+                "tags": ["Lesson"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get single lesson",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Lesson id",
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": " Single lesson",
+                        "schema": {
+                            "$ref": "#/definitions/lesson"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Lesson"],
+                "summary": "Update a lesson",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Lesson id",
+                        "type": "number"
+                    },
+                    {
+                        "name": "lesson",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/lesson"
+                        }
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "type": "file",
+                        "description": "Instruction of lesson"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lesson updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/lesson"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Lesson id",
+                        "type": "number"
+                    }
+                ],
+                "tags": ["Lesson"],
+                "summary": "Delete single lesson",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Delete lesson success",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/assessmentResult": {
+            "get": {
+                "tags": ["AssessmentResult"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get all assessmentResults",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "AssessmentResult list",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/apiResponse"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["AssessmentResult"],
+                "summary": "Create a assessmentResult",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "assessmentResult",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/assessmentResult"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "AssessmentResult created",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/assessmentResult/{id}": {
+            "get": {
+                "tags": ["AssessmentResult"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get single assessmentResult",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "AssessmentResult id",
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": " Single assessmentResult",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "AssessmentResult id",
+                        "type": "number"
+                    }
+                ],
+                "tags": ["AssessmentResult"],
+                "summary": "Delete single assessmentResult",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Delete assessmentResult success",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/assessmentResult/own/{userId}": {
+            "get": {
+                "tags": ["AssessmentResult"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "description": "User Id",
+                        "type": "number"
+                    }
+                ],
+                "summary": "Get assessmentResult by user",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "assessmentResult of user",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/course": {
+            "get": {
+                "tags": ["Course"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get all courses",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Course list",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/course"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Course"],
+                "summary": "Create a course",
+                "consumes": ["multipart/form-data"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "course",
+                        "description": "creating course",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/course"
+                        }
+                    },
+                    {
+                        "name": "myFiles",
+                        "in": "formData",
+                        "type": "file",
+                        "description": "Logo of course"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Course created",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{id}": {
+            "put": {
+                "tags": ["Course"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Edit single course",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Course id",
+                        "type": "number"
+                    },
+                    {
+                        "name": "course",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/course"
+                        }
+                    },
+                    {
+                        "name": "myFiles",
+                        "in": "formData",
+                        "type": "file",
+                        "description": "Logo of course"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": " Single course",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Course id",
+                        "type": "number"
+                    }
+                ],
+                "tags": ["Course"],
+                "summary": "Delete single course",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Delete course success",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/notification": {
+            "get": {
+                "tags": ["Notification"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get all notification",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "description": "Limit",
+                        "type": "string"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "query",
+                        "required": false,
+                        "description": "How many to skip",
+                        "type": "string"
+                    },
+                    {
+                        "name": "isNew",
+                        "in": "query",
+                        "required": false,
+                        "description": "Is notification new",
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Notification list",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/notification"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Notification"],
+                "summary": "Create a notification",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "notification",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/notification"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Notification created",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Notification"],
+                "summary": "Update a notification",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "notifications",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/notification-update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Notification updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/notification"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/notification/own": {
+            "get": {
+                "tags": ["Notification"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get own notifications",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "description": "Limit",
+                        "type": "string"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "query",
+                        "required": false,
+                        "description": "How many to skip",
+                        "type": "string"
+                    },
+                    {
+                        "name": "isNew",
+                        "in": "query",
+                        "required": false,
+                        "description": "Is notification new",
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Notification",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/notification"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/group": {
+            "get": {
+                "tags": ["Group"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Get all groups",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Group",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/group"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Group"],
+                "summary": "Create a group",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/group"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Group created",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Group"],
+                "summary": "Delete a group",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/group"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Group deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/group"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/group/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Group"],
+                "summary": "Update a group",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Group id",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "group",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/group"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Group updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/group"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Group"],
+                "summary": "Get single group",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Group id",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Group data by Id",
+                        "schema": {
+                            "$ref": "#/definitions/group"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/group/progress/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Group"],
+                "summary": "Get group progress",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Group id",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Group updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/business": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Business"],
+                "summary": "Get all businesses",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "All businesses data",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/business"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Business"],
+                "summary": "Create a businesses",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "business",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/business"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created business",
+                        "schema": {
+                            "$ref": "#/definitions/business"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Business"],
+                "summary": "Update a businesses",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "business",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/business"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated business",
+                        "schema": {
+                            "$ref": "#/definitions/business"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/business/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Business"],
+                "summary": "Get a businesses",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Business id",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Business by id",
+                        "schema": {
+                            "$ref": "#/definitions/business"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Business"],
+                "summary": "Delete a businesses",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Business id",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted business by id",
+                        "schema": {
+                            "$ref": "#/definitions/business"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/business/invite": {
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Business"],
+                "summary": "Invite user to business",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Business invite model",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/businessInviteModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User invited successfully",
+                        "schema": {
+                            "$ref": "#/definitions/business"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/business/change-status": {
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Business"],
+                "summary": "Change business member status",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "businessChangeStatusModel",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/businessChangeStatusModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Business by id",
+                        "schema": {
+                            "$ref": "#/definitions/business"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/business/user/{userId}": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "tags": ["Business"],
+                "summary": "Get user businesses",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "description": "User id",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Business by userId",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/business"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    },
+                    "5XX": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/apiResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "userSignIn": {
+            "required": ["email", "password"],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "registerModel": {
+            "required": ["firstName", "lastName", "password", "token"],
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "userSignUp": {
+            "required": ["firstName", "lastName", "email"],
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "userUpdateRole": {
+            "required": ["role"],
+            "properties": {
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "lesson": {
+            "required": ["topicId", "instruction", "assessmentQuestion"],
+            "properties": {
+                "topicId": {
+                    "type": "number"
+                },
+                "instruction": {
+                    "type": "object"
+                },
+                "assessmentQuestion": {
+                    "type": "string"
+                },
+                "instructionType": {
+                    "type": "string",
+                    "enum": ["text", "video", "slide"]
+                },
+                "answerChoices": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/answerChoice"
+                    }
+                },
+                "_id": {
+                    "type": "number"
+                }
+            }
+        },
+        "topic-get": {
+            "required": ["name"],
+            "properties": {
+                "_id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "createdByUserId": {
+                    "type": "number"
+                },
+                "lessons": {
+                    "type": "array",
+                    "item": {
+                        "$ref": "#/definitions/lesson"
+                    }
+                }
+            }
+        },
+        "topic-post": {
+            "required": ["name"],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "lessons": {
+                    "type": "array",
+                    "item": {
+                        "$ref": "#/definitions/lesson"
+                    }
+                }
+            }
+        },
+        "apiResponse": {
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "number"
+                },
+                "data": {
+                    "type": "any"
+                },
+                "error": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "answerChoice": {
+            "properties": {
+                "answerChoice": {
+                    "type": "string"
+                },
+                "isCorrect": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "assessmentResult": {
+            "properties": {
+                "userId": {
+                    "type": "number"
+                },
+                "topicId": {
+                    "type": "number"
+                },
+                "answerChoices": {
+                    "type": "object"
+                }
+            }
+        },
+        "course": {
+            "required": ["name"],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "userIds": {
+                    "type": "number"
+                },
+                "topicIds": {
+                    "type": "number"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "currentPrice": {
+                    "type": "string"
+                },
+                "logo": {
+                    "type": "string"
+                }
+            }
+        "notification": {
+            "properties": {
+                "businessAdminId": {
+                    "type": "number"
+                },
+                "userId": {
+                    "type": "number"
+                },
+                "courseId": {
+                    "type": "number"
+                },
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "notification-update": {
+            "properties": {
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                }
+            }
+        },
+        "group": {
+            "required": ["name", "creator"],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "creator": {
+                    "type": "string"
+                },
+                "userIds": {
+                    "type": "array",
+                    "items": {
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "courseIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                }
+            }
+        },
+        "business": {
+            "required": ["name", "creator"],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "creator": {
+                    "type": "integer"
+                }
+            }
+        },
+        "businessInviteModel": {
+            "required": ["businessId", "email"],
+            "properties": {
+                "businessId": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "businessChangeStatusModel": {
+            "required": ["businessId", "userId", "status"],
+            "properties": {
+                "businessId": {
+                    "type": "integer"
+                },
+                "userId": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

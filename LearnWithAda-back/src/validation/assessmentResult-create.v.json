@@ -1,0 +1,30 @@
+{
+    "title": "create a new assessmentResult",
+    "type": "object",
+    "properties": {
+        "body": {
+            "type": "object",
+            "properties": {
+                "lessonId": {
+                    "type": "number",
+                    "errorMessage": {
+                        "type": "Lesson id must be number.",
+                        "pattern": "Topic must be integer."
+                    }
+                },
+                "answerChoices": {
+                    "type": "object",
+                    "errorMessage": "Answer choices must be object."
+                }
+            },
+            "required": ["lessonId", "answerChoices"],
+            "errorMessage": {
+                "required": {
+                    "lessonId": "Lesson id is required.",
+                    "answerChoices": "Answer choices is required."
+                }
+            }
+        }
+    },
+    "required": ["body"]
+}
